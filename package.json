@@ -1,0 +1,10 @@
+{
+  "name": "example-lambda",
+  "version": "0.1.0",
+  "description": "An example lambda to test CI/CD stuff",
+  "main": "index.js",
+  "repository": "git@github.com:keymux/example-lambda.git",
+  "author": "Henry <hankbrown@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
