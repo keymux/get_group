@@ -6,5 +6,10 @@
   "repository": "git@github.com:keymux/example-lambda.git",
   "author": "Henry <hankbrown@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "setup": "npm run yarn:install && yarn install-sam-local",
+    "yarn:install": "npm install -g yarn",
+    "install-sam-local": "npm install -g aws-sam-local # have to use npm here"
+  }
 }
