@@ -1,12 +1,20 @@
 pipeline {
-  agent {
-    docker "node:6.10"
-  }
+  agent any
 
   stages {
     stage("Build") {
       steps {
-        echo "Hello world!"
+        sh "/bin/bash -c '. ~/.bash_profile; yarn install'"
+      }
+    }
+    stage('Test') {
+      steps {
+        sh "/bin/bash -c '. ~/.bash_profile; yarn test'"
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying'
       }
     }
   }
