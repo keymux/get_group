@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    docker "hibes/keymux-lambda-yarn"
-  }
+  agent any
 
   stages {
     stage("Build") {
