@@ -4,14 +4,12 @@ pipeline {
   stages {
     stage("Build") {
       steps {
-        echo 'Building'
+        sh "/bin/bash -c '. ~/.bash_profile; yarn install'"
       }
     }
     stage('Test') {
       steps {
-        sh '''#!/bin/bash
-                echo "hello world" && yarn test
-        '''
+        sh "/bin/bash -c '. ~/.bash_profile; yarn test'"
       }
     }
     stage('Deploy') {
