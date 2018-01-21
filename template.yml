@@ -1,0 +1,12 @@
+Resources:
+  Example:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs6.10
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get

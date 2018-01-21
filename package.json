@@ -1,10 +1,31 @@
 {
   "name": "example-lambda",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An example lambda to test CI/CD stuff",
   "main": "index.js",
   "repository": "git@github.com:keymux/example-lambda.git",
   "author": "Henry <hankbrown@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "setup": "npm run yarn:install && yarn install-sam-local",
+    "yarn:install": "npm install -g yarn",
+    "install-sam-local": "npm install -g aws-sam-local # have to use npm here",
+    "set-null-aws-credentials": "mkdir -p ~/.aws/ && cp files/credentials ~/.aws/credentials",
+    "start": "sam local start-api",
+    "test": "yarn test:lint && yarn test:unit",
+    "test:lint": "eslint .",
+    "test:unit": "mocha test/*.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.16.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "mocha": "^5.0.0",
+    "prettier": "^1.10.2",
+    "sinon": "^4.1.6",
+    "spy": "^1.0.0"
+  }
 }
