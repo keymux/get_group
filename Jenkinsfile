@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        bash '''#!/bin/bash
+        sh '''#!/bin/bash
                 echo "hello world" && yarn test
         '''
       }
