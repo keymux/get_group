@@ -12,6 +12,8 @@ pipeline {
     stage("Test") {
       steps {
         yarn test
+
+        echo "Hello world from testing!"
       }
     }
   }
