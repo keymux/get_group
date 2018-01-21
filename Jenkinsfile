@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    docker "node:6.10"
+  }
 
   stages {
     stage("Build") {
