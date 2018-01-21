@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        yarn test
+        bash "yarn test"
       }
     }
     stage('Deploy') {
