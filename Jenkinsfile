@@ -11,7 +11,9 @@ pipeline {
     }
     stage('Test') {
       steps {
-        bash "yarn test"
+        bash '''#!/bin/bash
+                echo "hello world" && yarn test
+        '''
       }
     }
     stage('Deploy') {
