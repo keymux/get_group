@@ -6,14 +6,17 @@ pipeline {
   stages {
     stage("Build") {
       steps {
-        echo "Hello world2!"
+        echo 'Building'
       }
     }
-    stage("Test") {
+    stage('Test') {
       steps {
-        yarn test
-
-        echo "Hello world from testing!"
+        echo 'Testing'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying'
       }
     }
   }
