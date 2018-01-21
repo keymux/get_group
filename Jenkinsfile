@@ -9,5 +9,10 @@ pipeline {
         echo "Hello world2!"
       }
     }
+    stage("Test") {
+      steps {
+        yarn test
+      }
+    }
   }
 }
