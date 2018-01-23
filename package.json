@@ -12,7 +12,7 @@
     "yarn:install": "npm install -g yarn",
     "install-sam-local": "npm install -g aws-sam-local # have to use npm here",
     "set-null-aws-credentials": "mkdir -p ~/.aws/ && cp files/credentials ~/.aws/credentials",
-    "start": "sam local start-api",
+    "start": "sam local start-api --host=0.0.0.0",
     "test": "yarn test:lint && yarn test:unit",
     "test:lint": "eslint .",
     "test:unit": "mocha test/*.js"
