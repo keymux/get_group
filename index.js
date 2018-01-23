@@ -1,7 +1,9 @@
 exports.handler = (event, context, callback) => {
   callback(null, {
     statusCode: 200,
-    headers: {},
-    body: "Hello world!"
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({response: "Hello world!"})
   });
 };
