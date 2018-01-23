@@ -4,6 +4,6 @@ exports.handler = (event, context, callback) => {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify({response: "Hello world!"})
+    body: JSON.stringify({ response: "Hello world!" }),
   });
 };
