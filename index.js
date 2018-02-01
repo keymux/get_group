@@ -14,7 +14,7 @@
  *
  * This API path should be /v1/carstuff/cars
  */
-
+console.log("chicken");
 const mongoose = require("mongoose");
 const config = require("./config/config.js");
 const DEFAULT_MONGO_PORT = 27017;
@@ -40,33 +40,30 @@ const conn = mongoose
   });
 
 exports.handler = (event, context, callback) => {
-  const CarSchema = new mongoose.Schema(
+  console.log("winner");
+  const GroupSchema = new mongoose.Schema(
     {
-      year: "number",
-      make: "string",
-      model: "string",
+      groupName: "string",
+      groupId: "string",
     },
     { collection: config.mongo.collection }
   );
 
-  const CarConstructor = mongoose.model("Car", CarSchema);
+  const GroupConstructor = mongoose.model("Group", GroupSchema);
 
-  const { Year, Make, Model } = event.queryStringParameters;
+  const { groupName, groupId } = event.queryStringParameters;
 
-  CarConstructor.create(
-    { year: Year, make: Make, model: Model },
-    (err, car) => {
-      console.log("Hello world!");
-      if (err) console.log(err);
-      console.log("Hello world!");
+  GroupConstructor.create({ groupName, groupId }, (err, Group) => {
+    console.log("Hello, World!");
+    if (err) console.log(err);
+    console.log("Hello, World!");
 
-      callback(null, {
-        statusCode: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({ event, context }, null, 2),
-      });
-    }
-  );
+    callback(null, {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({ groupId, groupName }, null, 2),
+    });
+  });
 };
