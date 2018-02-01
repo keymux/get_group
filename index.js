@@ -54,9 +54,7 @@ exports.handler = (event, context, callback) => {
   const { groupName, groupId } = event.queryStringParameters;
 
   GroupConstructor.create({ groupName, groupId }, (err, Group) => {
-    console.log("Hello, World!");
     if (err) console.log(err);
-    console.log("Hello, World!");
 
     callback(null, {
       statusCode: 200,
@@ -65,5 +63,7 @@ exports.handler = (event, context, callback) => {
       },
       body: JSON.stringify({ groupId, groupName }, null, 2),
     });
+
+    mongoose.connection.close();
   });
 };
