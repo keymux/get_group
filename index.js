@@ -14,7 +14,6 @@
  *
  * This API path should be /v1/carstuff/cars
  */
-console.log("chicken");
 const mongoose = require("mongoose");
 const config = require("./config/config.js");
 const DEFAULT_MONGO_PORT = 27017;
@@ -29,40 +28,59 @@ const options = {
   pass: config.mongo.password,
 };
 
-const conn = mongoose
-  .connect(uri, options)
-  .then(() => {
-    console.log("Mongoose connected");
-  })
-  .catch(arg => {
-    console.log("Mongoose didn't connect");
-    console.log(arg);
-  });
+const DEFAULT_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+};
+
+respond = (callback, body, statusCode = 500, headers = DEFAULT_HEADERS) => {
+  if (body.constructor === Object) {
+    body = JSON.stringify(body);
+  }
+
+  callback(null, { body, statusCode, headers });
+};
 
 exports.handler = (event, context, callback) => {
-  console.log("winner");
   const GroupSchema = new mongoose.Schema(
     {
       groupName: "string",
-      groupId: "string",
     },
     { collection: config.mongo.collection }
   );
 
   const GroupConstructor = mongoose.model("Group", GroupSchema);
 
-  const { groupName, groupId } = event.queryStringParameters;
+  const { groupName } = event.queryStringParameters;
 
-  GroupConstructor.create({ groupName, groupId }, (err, Group) => {
-    if (err) console.log(err);
-
-    callback(null, {
-      statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({ groupId, groupName }, null, 2),
+  if (!groupName) {
+    respond(callback, {
+      error: "You did not provide one of the required fields",
     });
+
+    return;
+  }
+
+  const conn = mongoose
+    .connect(uri, options)
+    .then(() => {
+      // On success, no need to do anything
+    })
+    .catch(arg => {
+      console.log("Mongoose didn't connect");
+      console.log(arg);
+    });
+
+  GroupConstructor.create({ groupName }, (err, Group) => {
+    if (err) {
+      console.log(err);
+      respond(callback, { error: "Internal server error" });
+    } else {
+      respond(
+        callback,
+        JSON.stringify({ groupName: Group.groupName, id: Group.id }),
+        200
+      );
+    }
 
     mongoose.connection.close();
   });
