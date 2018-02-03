@@ -32,7 +32,12 @@ const DEFAULT_HEADERS = {
   "Access-Control-Allow-Origin": "*",
 };
 
-respond = (callback, body, statusCode = 500, headers = DEFAULT_HEADERS) => {
+const respond = (
+  callback,
+  body,
+  statusCode = 500,
+  headers = DEFAULT_HEADERS
+) => {
   if (body.constructor === Object) {
     body = JSON.stringify(body);
   }
@@ -60,18 +65,21 @@ exports.handler = (event, context, callback) => {
     return;
   }
 
-  const conn = mongoose
+  mongoose
     .connect(uri, options)
     .then(() => {
       // On success, no need to do anything
     })
     .catch(arg => {
+      // eslint-disable-next-line no-console
       console.log("Mongoose didn't connect");
+      // eslint-disable-next-line no-console
       console.log(arg);
     });
 
   GroupConstructor.create({ groupName }, (err, Group) => {
     if (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
       respond(callback, { error: "Internal server error" });
     } else {
